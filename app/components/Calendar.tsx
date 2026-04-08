@@ -38,15 +38,13 @@ export default function Calendar({
   const [nextTheme,    setNextTheme]    = useState<MonthTheme | null>(null);
   const [themeFade,    setThemeFade]    = useState(0);
 
-  // Prevents stale async results when user navigates quickly
   const extractionRef = useRef<number>(0);
 
-  //Crossfade trigger: fires whenever viewMonth changes 
+  
   useEffect(() => {
     const id = ++extractionRef.current;
     const src = `/images/${MONTH_IMAGE_NAMES[viewMonth]}.jpeg`;
 
-    // Immediately mount the incoming image at opacity 0
     setIncomingMonth(viewMonth);
     setImageFade(0);
     setThemeFade(0);
@@ -59,11 +57,10 @@ export default function Calendar({
       // Mount new theme layer at opacity 0
       setNextTheme(extracted);
 
-      // Double rAF ensures the browser has painted the opacity-0 layer
-      // before we start the transition — without this you get a flash
+    
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          // Start both fades simultaneously
+       
           setImageFade(1);
           setThemeFade(1);
         });
@@ -73,12 +70,11 @@ export default function Calendar({
       setTimeout(() => {
         if (id !== extractionRef.current) return;
 
-        // Promote incoming → display, clear overlay
         setDisplayMonth(viewMonth);
         setIncomingMonth(null);
         setImageFade(0);
 
-        // Promote next → current, clear overlay
+       
         setCurrentTheme(extracted);
         setNextTheme(null);
         setThemeFade(0);
