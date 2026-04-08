@@ -1,18 +1,21 @@
 "use client";
 
 import { useRef, useCallback } from "react";
-import { WEEKDAY_LABELS, getMonthMatrix, isToday, isInRange, MONTH_NAMES } from "../utils/calendar";
+import {
+  WEEKDAY_LABELS, getMonthMatrix,
+  isToday, isInRange, MONTH_NAMES,
+} from "../utils/calendar";
 import { MonthTheme } from "../utils/themes";
 import { getHoliday, HOLIDAYS } from "../utils/holidays";
 import DayCell from "./DayCell";
 
 type Props = {
-  year: number;
-  month: number;
-  startDay: number | null;
-  endDay: number | null;
+  year:      number;
+  month:     number;
+  startDay:  number | null;
+  endDay:    number | null;
   onDayClick: (day: number) => void;
-  theme: MonthTheme;
+  theme:     MonthTheme;
 };
 
 export default function CalendarGrid({
@@ -28,8 +31,8 @@ export default function CalendarGrid({
     const cells = Array.from(
       grid.querySelectorAll<HTMLDivElement>('[role="button"][tabindex="0"]')
     );
-    const focused       = document.activeElement as HTMLElement;
-    const currentIndex  = cells.indexOf(focused as HTMLDivElement);
+    const focused      = document.activeElement as HTMLElement;
+    const currentIndex = cells.indexOf(focused as HTMLDivElement);
     if (currentIndex === -1) return;
 
     const moves: Record<string, number> = {
@@ -81,17 +84,17 @@ export default function CalendarGrid({
       >
         {matrix.map((week, wi) => (
           <div key={wi} role="row" className="grid grid-cols-7">
-            {week.map((day, di) => (
+            {week.map((cell, di) => (
               <DayCell
                 key={di}
-                day={day}
+                cell={cell}
                 month={month}
                 year={year}
-                isToday={day !== null && isToday(year, month, day)}
-                isStart={day === startDay}
-                isEnd={day === endDay}
-                isInRange={day !== null && isInRange(day, startDay, endDay)}
-                holiday={day !== null ? getHoliday(month, day) : null}
+                isToday={cell.isCurrentMonth && isToday(year, month, cell.day)}
+                isStart={cell.isCurrentMonth && cell.day === startDay}
+                isEnd={cell.isCurrentMonth && cell.day === endDay}
+                isInRange={cell.isCurrentMonth && isInRange(cell.day, startDay, endDay)}
+                holiday={cell.isCurrentMonth ? getHoliday(month, cell.day) : null}
                 onClick={onDayClick}
                 theme={theme}
               />
@@ -120,7 +123,7 @@ function HolidayLegend({ month, theme }: { month: number; theme: MonthTheme }) {
         className="text-xs font-semibold uppercase tracking-widest mb-2"
         style={{ color: theme.weekdayColor }}
       >
-        Holidayss
+        Holidays
       </p>
       <ul className="flex flex-col gap-1" role="list">
         {entries.map(([day, name]) => (

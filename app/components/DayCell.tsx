@@ -1,36 +1,56 @@
 "use client";
 
+import { CalendarCell, MONTH_NAMES } from "../utils/calendar";
 import { MonthTheme } from "../utils/themes";
-import { MONTH_NAMES } from "../utils/calendar";
 
 type Props = {
-  day: number | null;
-  month: number;
-  year: number;
-  isToday: boolean;
-  isStart: boolean;
-  isEnd: boolean;
+  cell:      CalendarCell;
+  month:     number;
+  year:      number;
+  isToday:   boolean;
+  isStart:   boolean;
+  isEnd:     boolean;
   isInRange: boolean;
-  holiday: string | null;
-  onClick: (day: number) => void;
-  theme: MonthTheme;
+  holiday:   string | null;
+  onClick:   (day: number) => void;
+  theme:     MonthTheme;
 };
 
 export default function DayCell({
-  day, month, year, isToday, isStart, isEnd,
+  cell, month, year, isToday, isStart, isEnd,
   isInRange, holiday, onClick, theme,
 }: Props) {
-  if (day === null) {
-    return <div role="gridcell" aria-hidden="true" className="h-12" />;
+  const { day, isCurrentMonth } = cell;
+
+  // ── Overflow cell 
+  if (!isCurrentMonth) {
+    return (
+      <div
+        role="gridcell"
+        aria-hidden="true"
+        className="relative h-12 flex flex-col items-center justify-start pt-1"
+      >
+        <div
+          className="w-8 h-8 flex items-center justify-center text-sm font-light tracking-wide"
+          style={{
+            color:   theme.dayDefault,
+            opacity: 0.25,           
+          }}
+        >
+          {day}
+        </div>
+      </div>
+    );
   }
 
-  const isSelected = isStart || isEnd;
+  // current month cell 
+  const isSelected  = isStart || isEnd;
 
   const dateLabel    = `${day} ${MONTH_NAMES[month]} ${year}`;
-  const stateLabel   = isStart  ? ", selected as start date"
-                     : isEnd    ? ", selected as end date"
+  const stateLabel   = isStart   ? ", selected as start date"
+                     : isEnd     ? ", selected as end date"
                      : isInRange ? ", within selected range"
-                     : isToday  ? ", today"
+                     : isToday   ? ", today"
                      : "";
   const holidayLabel = holiday ? `, holiday: ${holiday}` : "";
   const ariaLabel    = `${dateLabel}${stateLabel}${holidayLabel}`;
@@ -44,14 +64,17 @@ export default function DayCell({
     : { color: theme.dayDefault };
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
-    if ((e.key === "Enter" || e.key === " ") && day !== null) {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      onClick(day); 
+      onClick(day);
     }
   }
 
   return (
-    <div role="gridcell" className="relative h-12 flex flex-col items-center justify-start pt-1 group">
+    <div
+      role="gridcell"
+      className="relative h-12 flex flex-col items-center justify-start pt-1 group"
+    >
       <div
         role="button"
         tabIndex={0}
@@ -67,19 +90,20 @@ export default function DayCell({
         onMouseEnter={e => {
           if (!isSelected && !isInRange && !isToday) {
             (e.currentTarget as HTMLDivElement).style.backgroundColor = theme.dayHover;
-            (e.currentTarget as HTMLDivElement).style.borderRadius = "9999px";
+            (e.currentTarget as HTMLDivElement).style.borderRadius    = "9999px";
           }
         }}
         onMouseLeave={e => {
           if (!isSelected && !isInRange && !isToday) {
             (e.currentTarget as HTMLDivElement).style.backgroundColor = "";
-            (e.currentTarget as HTMLDivElement).style.borderRadius = "";
+            (e.currentTarget as HTMLDivElement).style.borderRadius    = "";
           }
         }}
       >
         {day}
       </div>
 
+      {/* Holiday dot */}
       {holiday && (
         <div className="relative flex justify-center mt-0.5">
           <div
