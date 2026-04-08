@@ -16,6 +16,10 @@ A polished, interactive calendar component built with Next.js 15, TypeScript, an
 - **Responsive** - side-by-side on desktop, stacked on mobile.
 
 ---
+##  Demo Video
+
+
+[Watch Demo](https://drive.google.com/file/d/1ECXAGxHhBFuTBn1PKYSDTAlVtWe-hmH9/view)
 
 ## Running locally
 
