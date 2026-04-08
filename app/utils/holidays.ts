@@ -9,7 +9,7 @@ export type HolidayMap = {
 };
 
 export const HOLIDAYS: HolidayMap = {
-  // ─── JANUARY ───────────────────────────────────────────────
+  // january
   0: {
     1:  "New Year's Day",
     14: "Makar Sankranti",
@@ -18,14 +18,14 @@ export const HOLIDAYS: HolidayMap = {
     26: "Republic Day",
   },
 
-  // ─── FEBRUARY ──────────────────────────────────────────────
+  // february
   1: {
     14: "Valentine's Day",
     19: "Chhatrapati Shivaji Maharaj Jayanti",
-    26: "Maha Shivaratri",  // approximate — changes yearly
+    26: "Maha Shivaratri",  
   },
 
-  // ─── MARCH ─────────────────────────────────────────────────
+  // march
   2: {
     8:  "International Women's Day",
     14: "Holi (Holika Dahan)",
@@ -34,7 +34,7 @@ export const HOLIDAYS: HolidayMap = {
     25: "Good Friday (approx)",
   },
 
-  // ─── APRIL ─────────────────────────────────────────────────
+  // april
   3: {
     1:  "April Fool's Day",
     5:  "Ram Navami",
@@ -45,7 +45,7 @@ export const HOLIDAYS: HolidayMap = {
     22: "Earth Day",
   },
 
-  // ─── MAY ───────────────────────────────────────────────────
+  //may
   4: {
     1:  "International Labour Day",
     9:  "Rabindranath Tagore Jayanti",
@@ -54,7 +54,7 @@ export const HOLIDAYS: HolidayMap = {
     23: "World Turtle Day",
   },
 
-  // ─── JUNE ──────────────────────────────────────────────────
+  // june
   5: {
     1:  "World Milk Day",
     5:  "World Environment Day",
@@ -63,7 +63,7 @@ export const HOLIDAYS: HolidayMap = {
     27: "Eid al-Adha (approx)",
   },
 
-  // ─── JULY ──────────────────────────────────────────────────
+  // july
   6: {
     1:  "Doctor's Day (India)",
     4:  "Independence Day (USA)",
@@ -71,7 +71,7 @@ export const HOLIDAYS: HolidayMap = {
     17: "World Emoji Day",
   },
 
-  // ─── AUGUST ────────────────────────────────────────────────
+  // august
   7: {
     5:  "Friendship Day",
     15: "Independence Day (India)",
@@ -80,7 +80,7 @@ export const HOLIDAYS: HolidayMap = {
     29: "National Sports Day",
   },
 
-  // ─── SEPTEMBER ─────────────────────────────────────────────
+  // september
   8: {
     2:  "Ganesh Chaturthi (approx)",
     5:  "Teachers' Day (India)",
@@ -89,7 +89,7 @@ export const HOLIDAYS: HolidayMap = {
     27: "World Tourism Day",
   },
 
-  // ─── OCTOBER ───────────────────────────────────────────────
+  // october
   9: {
     2:  "Gandhi Jayanti / World Non-Violence Day",
     5:  "World Teachers' Day",
@@ -100,7 +100,7 @@ export const HOLIDAYS: HolidayMap = {
     31: "Halloween / Sardar Patel Jayanti",
   },
 
-  // ─── NOVEMBER ──────────────────────────────────────────────
+  // november
   10: {
     1:  "Diwali (approx)",
     2:  "Bhai Dooj (approx)",
@@ -109,7 +109,7 @@ export const HOLIDAYS: HolidayMap = {
     19: "International Men's Day",
   },
 
-  // ─── DECEMBER ──────────────────────────────────────────────
+  // dec
   11: {
     1:  "World AIDS Day",
     3:  "World Disability Day",
@@ -121,7 +121,7 @@ export const HOLIDAYS: HolidayMap = {
   },
 };
 
-// Helper — returns holiday name for a given month+day, or null
+// Helper returns holiday name for a given month+day, or null
 export function getHoliday(month: number, day: number): string | null {
   return HOLIDAYS[month]?.[day] ?? null;
 }

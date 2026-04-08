@@ -21,20 +21,19 @@ export default function Calendar({
 }) {
   const today = new Date();
 
-  // ── Calendar state ─────────────────────────────────────────────────────────
+  // Calendar state: which month/year is currently being viewed, and which days are selected
   const [viewYear,  setViewYear]  = useState(today.getFullYear());
   const [viewMonth, setViewMonth] = useState(today.getMonth());
   const [startDay,  setStartDay]  = useState<number | null>(null);
   const [endDay,    setEndDay]    = useState<number | null>(null);
 
-  // ── Image crossfade state ──────────────────────────────────────────────────
-  // We always know exactly which image is "under" and which is "on top"
-  // No index math during render — both months are stored explicitly
+  //Image crossfade state: which month is currently fully visible, which month is incoming, and the fade progress 
+
   const [displayMonth,  setDisplayMonth]  = useState(today.getMonth()); // fully visible
   const [incomingMonth, setIncomingMonth] = useState<number | null>(null); // fading in
   const [imageFade,     setImageFade]     = useState(0); // 0 = incoming invisible, 1 = fully visible
 
-  // ── Theme crossfade state ──────────────────────────────────────────────────
+  //  Theme crossfade state
   const [currentTheme, setCurrentTheme] = useState<MonthTheme>(THEMES[today.getMonth()]);
   const [nextTheme,    setNextTheme]    = useState<MonthTheme | null>(null);
   const [themeFade,    setThemeFade]    = useState(0);
@@ -42,7 +41,7 @@ export default function Calendar({
   // Prevents stale async results when user navigates quickly
   const extractionRef = useRef<number>(0);
 
-  // ── Crossfade trigger: fires whenever viewMonth changes ───────────────────
+  //Crossfade trigger: fires whenever viewMonth changes 
   useEffect(() => {
     const id = ++extractionRef.current;
     const src = `/images/${MONTH_IMAGE_NAMES[viewMonth]}.jpeg`;
@@ -87,10 +86,10 @@ export default function Calendar({
     });
   }, [viewMonth]);
 
-  // The theme components should use — blends toward nextTheme during transition
+  // The theme components should use blends toward nextTheme during transition
   const activeTheme = nextTheme ?? currentTheme;
 
-  // ── Day selection ──────────────────────────────────────────────────────────
+  // Day selection
   function handleDayClick(day: number) {
     if (startDay === null || (startDay !== null && endDay !== null)) {
       setStartDay(day);
@@ -100,7 +99,7 @@ export default function Calendar({
     }
   }
 
-  // ── Month navigation ───────────────────────────────────────────────────────
+  // Month navigation 
   function prevMonth() {
     const newMonth = viewMonth === 0 ? 11 : viewMonth - 1;
     const newYear  = viewMonth === 0 ? viewYear - 1 : viewYear;
@@ -121,7 +120,7 @@ export default function Calendar({
     setEndDay(null);
   }
 
-  // ── ARIA label helpers ─────────────────────────────────────────────────────
+  // ARIA label helpers
   const monthLabel     = `${MONTH_NAMES[viewMonth]} ${viewYear}`;
   const prevMonthLabel = viewMonth === 0
     ? `${MONTH_NAMES[11]} ${viewYear - 1}`
@@ -130,10 +129,10 @@ export default function Calendar({
     ? `${MONTH_NAMES[0]} ${viewYear + 1}`
     : `${MONTH_NAMES[viewMonth + 1]} ${viewYear}`;
 
-  // Shared CSS transition string — used identically for image and theme layers
+
   const TRANSITION = "opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1)";
 
-  // ── Render ─────────────────────────────────────────────────────────────────
+
   return (
     <div
       className="w-full max-w-3xl mx-auto rounded-2xl overflow-hidden relative"
@@ -142,16 +141,16 @@ export default function Calendar({
       }}
     >
 
-      {/* ── Background theme layers ────────────────────────────────────────── */}
+      {/* Background theme layers */}
 
-      {/* Layer 1: current theme — always fully visible underneath */}
+      {/* Layer 1: current theme  always fully visible underneath */}
       <div
         aria-hidden="true"
         className="absolute inset-0 rounded-2xl"
         style={{ background: currentTheme.cardBg }}
       />
 
-      {/* Layer 2: incoming theme — fades in on top */}
+      {/* Layer 2: incoming theme fades in on top */}
       {nextTheme && (
         <div
           aria-hidden="true"
@@ -164,14 +163,14 @@ export default function Calendar({
         />
       )}
 
-      {/* ── All content above the background layers ────────────────────────── */}
+     
       <div className="relative z-10">
 
-        {/* ── Image crossfade container ───────────────────────────────────── */}
-        {/* Fixed height so layout never shifts during the crossfade */}
+        {/* Image crossfade container  */}
+       
         <div className="relative w-full h-52 sm:h-72 rounded-t-2xl overflow-hidden">
 
-          {/* Current image — fades OUT when incoming mounts */}
+          {/* Current image*/}
           <div
             className="absolute inset-0"
             style={{
@@ -182,7 +181,7 @@ export default function Calendar({
             <HeaderImage month={displayMonth} />
           </div>
 
-          {/* Incoming image — fades IN from opacity 0 */}
+          {/* Incoming image*/}
           {incomingMonth !== null && (
             <div
               className="absolute inset-0"
@@ -196,7 +195,7 @@ export default function Calendar({
           )}
         </div>
 
-        {/* Gradient bridge: image → card background */}
+        {/* Gradient bridge: image then card background */}
         <div
           className="h-8 -mt-8"
           style={{
@@ -205,7 +204,7 @@ export default function Calendar({
           }}
         />
 
-        {/* ── Month navigation ────────────────────────────────────────────── */}
+        {/*Month navigation  */}
 <div
   role="navigation"
   aria-label="Month navigation"
@@ -249,7 +248,7 @@ export default function Calendar({
       {viewYear}
     </p>
 
-    {/* Today button — only visible when not already on today's month */}
+    {/* Today button  */}
     {(viewMonth !== today.getMonth() || viewYear !== today.getFullYear()) && (
       <button
         onClick={() => {

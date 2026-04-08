@@ -1,9 +1,9 @@
-// app/utils/themes.ts
-// Each month has a complete design theme derived from its image palette.
-// Every color in the UI pulls from this — nothing is hardcoded elsewhere.
+
+
+// Every color in the UI pulls from this nothing is hardcoded elsewhere
 
 export type MonthTheme = {
-  // Card & page background
+  // Card and page background
   pageBg: string;
   cardBg: string;
 
@@ -31,11 +31,11 @@ export type MonthTheme = {
   rangeBg: string;             // days between start & end
   rangeText: string;
 
-  // Range summary text
+ 
   rangeLabel: string;
 
   // Notes panel
-  noteLabel: string;           // "NOTES" heading
+  noteLabel: string;          
   noteBorder: string;
   noteFocusRing: string;
   notePlaceholder: string;
@@ -50,7 +50,7 @@ export type MonthTheme = {
 };
 
 export const THEMES: MonthTheme[] = [
-  // ─── JANUARY — Blue flowers ───────────────────────────────────────────────
+  // jan blue flowers 
   {
     pageBg:         "#dce8f5",
     cardBg:         "#eef4fb",
@@ -81,7 +81,7 @@ export const THEMES: MonthTheme[] = [
     charCount:      "#93c5fd",
   },
 
-  // ─── FEBRUARY — Pink lily ─────────────────────────────────────────────────
+  // feb pink lily 
   {
     pageBg:         "#fce7f3",
     cardBg:         "#fdf2f8",
@@ -112,7 +112,7 @@ export const THEMES: MonthTheme[] = [
     charCount:      "#f9a8d4",
   },
 
-  // ─── MARCH — White & yellow flowers ───────────────────────────────────────
+  // march white and yellow flowers
   {
     pageBg:         "#fefce8",
     cardBg:         "#fffef5",
@@ -143,7 +143,7 @@ export const THEMES: MonthTheme[] = [
     charCount:      "#fde047",
   },
 
-  // ─── APRIL — Colourful flowers ────────────────────────────────────────────
+  // april colourful flowers 
   {
     pageBg:         "#f3e8ff",
     cardBg:         "#faf5ff",
@@ -174,7 +174,7 @@ export const THEMES: MonthTheme[] = [
     charCount:      "#d8b4fe",
   },
 
-  // ─── MAY — Colourful full bloom ───────────────────────────────────────────
+  // may colourful full bloom 
   {
     pageBg:         "#ecfdf5",
     cardBg:         "#f0fdf4",
@@ -205,7 +205,7 @@ export const THEMES: MonthTheme[] = [
     charCount:      "#6ee7b7",
   },
 
-  // ─── JUNE — Pink lotus in blue water ─────────────────────────────────────
+  // june  pink lotus in blue water
   {
     pageBg:         "#e0f2fe",
     cardBg:         "#f0f9ff",
@@ -217,14 +217,14 @@ export const THEMES: MonthTheme[] = [
     weekdayColor:   "#0369a1",
     dayDefault:     "#075985",
     dayHover:       "#e0f2fe",
-    todayBorder:    "#e879a0",    // lotus pink accent
+    todayBorder:    "#e879a0",    
     todayText:      "#0c4a6e",
     selectedBg:     "#0369a1",
     selectedText:   "#f0f9ff",
     rangeBg:        "#bae6fd",
     rangeText:      "#0c4a6e",
     rangeLabel:     "#38bdf8",
-    noteLabel:      "#e879a0",   // lotus pink
+    noteLabel:      "#e879a0",   
     noteBorder:     "#bae6fd",
     noteFocusRing:  "#7dd3fc",
     notePlaceholder:"#7dd3fc",
@@ -236,7 +236,7 @@ export const THEMES: MonthTheme[] = [
     charCount:      "#7dd3fc",
   },
 
-  // ─── JULY — Pink lily on black bg ─────────────────────────────────────────
+  // july  pink lily on black bg 
   {
     pageBg:         "#1a0a0f",
     cardBg:         "#1f0d14",
@@ -267,7 +267,7 @@ export const THEMES: MonthTheme[] = [
     charCount:      "#9f1239",
   },
 
-  // ─── AUGUST — White lilies on black bg ────────────────────────────────────
+  // august white lilies on black bg
   {
     pageBg:         "#0a0a0a",
     cardBg:         "#111111",
@@ -298,7 +298,7 @@ export const THEMES: MonthTheme[] = [
     charCount:      "#525252",
   },
 
-  // ─── SEPTEMBER — Purple flowers ───────────────────────────────────────────
+  // september purple flowers 
   {
     pageBg:         "#ede9fe",
     cardBg:         "#f5f3ff",
@@ -329,7 +329,7 @@ export const THEMES: MonthTheme[] = [
     charCount:      "#c4b5fd",
   },
 
-  // ─── OCTOBER — Green & peach ──────────────────────────────────────────────
+  // october green and peach 
   {
     pageBg:         "#fef3e8",
     cardBg:         "#fdf8f0",
@@ -360,7 +360,7 @@ export const THEMES: MonthTheme[] = [
     charCount:      "#fdba74",
   },
 
-  // ─── NOVEMBER — Light blue & white flowers ────────────────────────────────
+  // november light blue and white flowers 
   {
     pageBg:         "#e8f4f8",
     cardBg:         "#f0f8fc",
@@ -391,7 +391,7 @@ export const THEMES: MonthTheme[] = [
     charCount:      "#7ec8e3",
   },
 
-  // ─── DECEMBER — Purple flowers ────────────────────────────────────────────
+  // december purple flowers
   {
     pageBg:         "#1a0a2e",
     cardBg:         "#1e0d35",

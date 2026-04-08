@@ -1,12 +1,9 @@
-// app/utils/colorExtractor.ts
-// Samples a floral image using <canvas>, clusters the colors,
-// and returns a full MonthTheme derived purely from the image.
+
 
 import { MonthTheme, THEMES } from "./themes";
 
 type RGB = { r: number; g: number; b: number };
 
-// Sample NxN grid of pixels from an image element
 function samplePixels(img: HTMLImageElement, samples = 20): RGB[] {
   const canvas = document.createElement("canvas");
   canvas.width = samples;
@@ -19,7 +16,7 @@ function samplePixels(img: HTMLImageElement, samples = 20): RGB[] {
 
   const pixels: RGB[] = [];
   for (let i = 0; i < data.length; i += 4) {
-    // Skip near-white and near-black pixels — not useful for theming
+    // Skip near-white and near-black pixels not asthetic enough
     const r = data[i], g = data[i + 1], b = data[i + 2];
     const brightness = (r + g + b) / 3;
     if (brightness > 240 || brightness < 15) continue;
@@ -29,7 +26,7 @@ function samplePixels(img: HTMLImageElement, samples = 20): RGB[] {
 }
 
 // Find the most "saturated" color from sampled pixels
-// Saturation = how colorful a pixel is (not grey)
+
 function findDominant(pixels: RGB[]): RGB {
   let best = pixels[0] ?? { r: 100, g: 100, b: 100 };
   let bestScore = 0;
@@ -46,13 +43,13 @@ function findDominant(pixels: RGB[]): RGB {
   return best;
 }
 
-// Determine if a color is "dark" (so we can flip text colors)
+// Determine if a color is dark so text can be light, or vice versa
 function isDark(color: RGB): boolean {
-  // Perceived luminance formula
+  // Perceived luminance formulaaa
   return (0.299 * color.r + 0.587 * color.g + 0.114 * color.b) < 90;
 }
 
-// Convert RGB to hex string
+// Convert RGB to hexa string
 function toHex({ r, g, b }: RGB): string {
   return `#${[r, g, b].map(v => v.toString(16).padStart(2, "0")).join("")}`;
 }
@@ -76,12 +73,11 @@ function darken(c: RGB, amount: number): RGB {
   return mix(c, { r: 0, g: 0, b: 0 }, amount);
 }
 
-// Build a complete MonthTheme from a single dominant color
 function buildThemeFromColor(accent: RGB, dark: boolean): MonthTheme {
   const accentHex    = toHex(accent);
-  const lightAccent  = toHex(lighten(accent, 0.72));  // very pale — backgrounds
-  const softAccent   = toHex(lighten(accent, 0.50));  // medium — range highlight
-  const deepAccent   = toHex(darken(accent, 0.30));   // deep — selected bg
+  const lightAccent  = toHex(lighten(accent, 0.72));  
+  const softAccent   = toHex(lighten(accent, 0.50));  
+  const deepAccent   = toHex(darken(accent, 0.30));   
   const textBase     = dark ? "#f0f0f0" : toHex(darken(accent, 0.55));
   const subtleText   = dark ? "#aaaaaa" : toHex(darken(accent, 0.25));
   const pageBgRgb    = dark ? darken(accent, 0.82) : lighten(accent, 0.88);
@@ -120,8 +116,7 @@ function buildThemeFromColor(accent: RGB, dark: boolean): MonthTheme {
   };
 }
 
-// Main export — loads the image, samples it, returns a derived theme
-// Falls back to the hardcoded theme if anything fails
+
 export async function extractThemeFromImage(
   src: string,
   fallbackMonth: number

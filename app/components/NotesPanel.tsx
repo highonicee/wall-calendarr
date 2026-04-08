@@ -69,7 +69,7 @@ export default function NotesPanel({ monthLabel, theme }: Props) {
             (e.currentTarget as HTMLButtonElement).style.backgroundColor = "";
           }}
         >
-          ↓ Save
+           Save
         </button>
       </div>
 

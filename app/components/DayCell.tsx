@@ -44,9 +44,9 @@ export default function DayCell({
     : { color: theme.dayDefault };
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
-    if (e.key === "Enter" || e.key === " ") {
+    if ((e.key === "Enter" || e.key === " ") && day !== null) {
       e.preventDefault();
-      onClick(day); // day is guaranteed non-null here — null case returned early above
+      onClick(day); 
     }
   }
 

@@ -120,7 +120,7 @@ function HolidayLegend({ month, theme }: { month: number; theme: MonthTheme }) {
         className="text-xs font-semibold uppercase tracking-widest mb-2"
         style={{ color: theme.weekdayColor }}
       >
-        Holidays
+        Holidayss
       </p>
       <ul className="flex flex-col gap-1" role="list">
         {entries.map(([day, name]) => (

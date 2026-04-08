@@ -1,4 +1,4 @@
-// Floral image header — no changes needed here from last version
+// Floral image header 
 import Image from "next/image";
 
 const MONTH_IMAGE_NAMES = [
